@@ -1,0 +1,45 @@
+[ 2026-01-30 19:06:51,664 ] numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+[ 2026-01-30 19:06:56,908 ] tensorflow - DEBUG - Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+[ 2026-01-30 19:06:57,417 ] h5py._conv - DEBUG - Creating converter from 7 to 5
+[ 2026-01-30 19:06:57,417 ] h5py._conv - DEBUG - Creating converter from 5 to 7
+[ 2026-01-30 19:06:57,417 ] h5py._conv - DEBUG - Creating converter from 7 to 5
+[ 2026-01-30 19:06:57,417 ] h5py._conv - DEBUG - Creating converter from 5 to 7
+[ 2026-01-30 19:06:57,934 ] jax._src.path - DEBUG - etils.epath found. Using etils.epath for file I/O.
+[ 2026-01-30 19:06:58,626 ] matplotlib - DEBUG - matplotlib data path: /opt/anaconda3/lib/python3.12/site-packages/matplotlib/mpl-data
+[ 2026-01-30 19:06:58,630 ] matplotlib - DEBUG - CONFIGDIR=/Users/anuragramteke/.matplotlib
+[ 2026-01-30 19:06:58,631 ] matplotlib - DEBUG - interactive is False
+[ 2026-01-30 19:06:58,631 ] matplotlib - DEBUG - platform is darwin
+[ 2026-01-30 19:06:58,659 ] matplotlib - DEBUG - CACHEDIR=/Users/anuragramteke/.matplotlib
+[ 2026-01-30 19:06:58,660 ] matplotlib.font_manager - DEBUG - Using fontManager instance from /Users/anuragramteke/.matplotlib/fontlist-v330.json
+[ 2026-01-30 19:08:04,616 ] root - INFO - Entered the run_pipeline method of TrainPipeline class
+[ 2026-01-30 19:08:04,617 ] root - INFO - Entered the start_data_ingestion method of TrainPipeline class
+[ 2026-01-30 19:08:04,617 ] root - INFO - Getting the data from GCLoud Storage bucket
+[ 2026-01-30 19:08:04,617 ] root - INFO - Entered the initiate_data_ingestion method of Data ingestion class
+[ 2026-01-30 19:08:04,617 ] root - INFO - Entered the get_data_from_gcloud method of Data ingestion class
+[ 2026-01-30 19:08:04,631 ] root - INFO - Exited the get_data_from_gcloud method of Data ingestion class
+[ 2026-01-30 19:08:04,632 ] root - INFO - Fetched the data from gcloud bucket
+[ 2026-01-30 19:08:04,632 ] root - INFO - Entered the unzip_and_clean method of Data ingestion class
+[ 2026-01-30 19:09:21,632 ] root - INFO - Entered the run_pipeline method of TrainPipeline class
+[ 2026-01-30 19:09:21,640 ] root - INFO - Entered the start_data_ingestion method of TrainPipeline class
+[ 2026-01-30 19:09:21,640 ] root - INFO - Getting the data from GCLoud Storage bucket
+[ 2026-01-30 19:09:21,640 ] root - INFO - Entered the initiate_data_ingestion method of Data ingestion class
+[ 2026-01-30 19:09:21,640 ] root - INFO - Entered the get_data_from_gcloud method of Data ingestion class
+[ 2026-01-30 19:09:21,658 ] root - INFO - Exited the get_data_from_gcloud method of Data ingestion class
+[ 2026-01-30 19:09:21,658 ] root - INFO - Fetched the data from gcloud bucket
+[ 2026-01-30 19:09:21,658 ] root - INFO - Entered the unzip_and_clean method of Data ingestion class
+[ 2026-01-30 19:09:24,373 ] root - INFO - Entered the run_pipeline method of TrainPipeline class
+[ 2026-01-30 19:09:24,373 ] root - INFO - Entered the start_data_ingestion method of TrainPipeline class
+[ 2026-01-30 19:09:24,374 ] root - INFO - Getting the data from GCLoud Storage bucket
+[ 2026-01-30 19:09:24,374 ] root - INFO - Entered the initiate_data_ingestion method of Data ingestion class
+[ 2026-01-30 19:09:24,374 ] root - INFO - Entered the get_data_from_gcloud method of Data ingestion class
+[ 2026-01-30 19:09:24,387 ] root - INFO - Exited the get_data_from_gcloud method of Data ingestion class
+[ 2026-01-30 19:09:24,387 ] root - INFO - Fetched the data from gcloud bucket
+[ 2026-01-30 19:09:24,387 ] root - INFO - Entered the unzip_and_clean method of Data ingestion class
+[ 2026-01-30 19:09:25,852 ] root - INFO - Entered the run_pipeline method of TrainPipeline class
+[ 2026-01-30 19:09:25,852 ] root - INFO - Entered the start_data_ingestion method of TrainPipeline class
+[ 2026-01-30 19:09:25,852 ] root - INFO - Getting the data from GCLoud Storage bucket
+[ 2026-01-30 19:09:25,852 ] root - INFO - Entered the initiate_data_ingestion method of Data ingestion class
+[ 2026-01-30 19:09:25,852 ] root - INFO - Entered the get_data_from_gcloud method of Data ingestion class
+[ 2026-01-30 19:09:25,863 ] root - INFO - Exited the get_data_from_gcloud method of Data ingestion class
+[ 2026-01-30 19:09:25,864 ] root - INFO - Fetched the data from gcloud bucket
+[ 2026-01-30 19:09:25,864 ] root - INFO - Entered the unzip_and_clean method of Data ingestion class
