@@ -19,4 +19,4 @@ jobs:
 workflows:
   CICD:
     jobs:
-      - test-and-eval
+      - build-and-deploy
