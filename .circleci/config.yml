@@ -1,38 +1,49 @@
 version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@8.2.1
+  aws-cli: circleci/aws-cli@3.1.4
+
 jobs:
-  continuous_integration:
+  continuous-integration:
+    docker:
+      - image: cimg/base:stable
+    resource_class: medium
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - aws-ecr/build-and-push-image:
+          create-repo: true
+          dockerfile: Dockerfile
+          path: .
+          platform: linux/amd64
+          push-image: true
+          region: '${AWS_REGION}'
+          repo: demo
+          registry-id: AWS_ECR_REGISTRY_ID
+          repo-scan-on-push: true
+          tag: latest
+
+  continuous-delivery:
     machine: true
     resource_class: anurag/sentimentrunner
     steps:
-      - checkout
+      - aws-cli/setup
       - run:
-          name: verify environment
-          command: |
-            echo "=== Docker version ==="
-            docker --version
-            echo "=== Current directory ==="
-            pwd
-            echo "=== Files ==="
-            ls -la
+          name: auth to aws ecr
+          command: aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 992382366985.dkr.ecr.ap-south-1.amazonaws.com
       - run:
-          name: build docker image
-          command: |
-            docker build -t sentimentdemo:latest . || exit 1
+          name: pull image from private repository
+          command: docker pull 992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
       - run:
-          name: cleanup old containers
-          command: |
-            docker stop sentimentdemo 2>/dev/null || true
-            docker rm sentimentdemo 2>/dev/null || true
-      - run:
-          name: run new container
-          command: |
-            docker run -d --name sentimentdemo -p 8080:8080 sentimentdemo:latest
-      - run:
-          name: verify container is running
-          command: |
-            sleep 5
-            docker ps | grep sentimentdemo
+          name: run image
+          command: docker run -d -p 8080:8080 992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
+
 workflows:
   CICD:
     jobs:
-      - continuous_integration
+      - continuous-integration
+      - continuous-delivery:
+          requires:
+            - continuous-integration
