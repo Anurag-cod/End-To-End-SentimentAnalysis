@@ -31,14 +31,22 @@ jobs:
     steps:
       - aws-cli/setup
       - run:
-          name: auth to aws ecr
-          command: aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 992382366985.dkr.ecr.ap-south-1.amazonaws.com
-      - run:
-          name: pull image from private repository
-          command: docker pull 992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
-      - run:
-          name: run image
-          command: docker run -d -p 8080:8080 992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
+          name: Deploy to EC2
+          command: |
+            ssh ubuntu@$EC2_PUBLIC_IP << 'EOF'
+              aws ecr get-login-password --region ap-south-1 \
+              | docker login --username AWS --password-stdin 992382366985.dkr.ecr.ap-south-1.amazonaws.com
+
+              docker pull 992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
+
+              docker stop sentimentdemo || true
+              docker rm sentimentdemo || true
+
+              docker run -d \
+                --name sentimentdemo \
+                -p 8080:8080 \
+                992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
+            EOF
 
 workflows:
   CICD:
