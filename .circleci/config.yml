@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@3.1.4
 jobs:
-  test-and-eval:
+  continuous-integration:
     machine: true
     resource_class: anurag/sentimentrunner
     steps:
@@ -19,4 +19,4 @@ jobs:
 workflows:
   CICD:
     jobs:
-      - test-and-eval
+      - continuous-integration:
