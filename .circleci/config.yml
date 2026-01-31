@@ -29,7 +29,6 @@ jobs:
     machine: true
     resource_class: anurag/sentimentrunner
     steps:
-      - aws-cli/setup
       - run:
           name: auth to aws ecr
           command: |
