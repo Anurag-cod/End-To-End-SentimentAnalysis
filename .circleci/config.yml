@@ -1,6 +1,4 @@
 version: 2.1
-orbs:
-  aws-cli: circleci/aws-cli@3.1.4
 jobs:
   continuous_integration:
     machine: true
@@ -8,14 +6,32 @@ jobs:
     steps:
       - checkout
       - run:
-          name: build docker image
-          command: docker build -t sentimentdemo:latest .
+          name: verify environment
+          command: |
+            echo "=== Docker version ==="
+            docker --version
+            echo "=== Current directory ==="
+            pwd
+            echo "=== Files ==="
+            ls -la
       - run:
-          name: stop old container
-          command: docker stop sentimentdemo || true && docker rm sentimentdemo || true
+          name: build docker image
+          command: |
+            docker build -t sentimentdemo:latest . || exit 1
+      - run:
+          name: cleanup old containers
+          command: |
+            docker stop sentimentdemo 2>/dev/null || true
+            docker rm sentimentdemo 2>/dev/null || true
       - run:
           name: run new container
-          command: docker run -d --name sentimentdemo -p 8080:8080 sentimentdemo:latest
+          command: |
+            docker run -d --name sentimentdemo -p 8080:8080 sentimentdemo:latest
+      - run:
+          name: verify container is running
+          command: |
+            sleep 5
+            docker ps | grep sentimentdemo
 workflows:
   CICD:
     jobs:
