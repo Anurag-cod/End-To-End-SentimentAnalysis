@@ -32,13 +32,31 @@ jobs:
       - aws-cli/setup
       - run:
           name: auth to aws ecr
-          command: aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 992382366985.dkr.ecr.ap-south-1.amazonaws.com
+          command: |
+            aws ecr get-login-password --region ${AWS_REGION} | \
+            docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+      - run:
+          name: stop and remove existing container
+          command: |
+            docker stop sentimentdemo || true
+            docker rm sentimentdemo || true
       - run:
           name: pull image from private repository
-          command: docker pull 992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
+          command: |
+            docker pull ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/sentimentdemo:latest
       - run:
           name: run image
-          command: docker run -d -p 8080:8080 992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
+          command: |
+            docker run -d \
+              --name sentimentdemo \
+              --restart unless-stopped \
+              -p 8080:8080 \
+              ${AWS_ECR_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/sentimentdemo:latest
+      - run:
+          name: verify deployment
+          command: |
+            sleep 5
+            docker ps | grep sentimentdemo
 
 workflows:
   CICD:
