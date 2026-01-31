@@ -21,7 +21,7 @@ jobs:
           push-image: true
           region: '${AWS_REGION}'
           repo: sentimentdemo
-          registry-id: AWS_ECR_REGISTRY_ID
+          registry-id: '${AWS_ECR_REGISTRY_ID}'
           repo-scan-on-push: true
           tag: latest
 
@@ -32,13 +32,21 @@ jobs:
       - aws-cli/setup
       - run:
           name: auth to aws ecr
-          command: aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 992382366985.dkr.ecr.ap-south-1.amazonaws.com
+          command: |
+            ECR_REGISTRY="${AWS_ECR_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+            aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
       - run:
           name: pull image from private repository
-          command: docker pull 992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
+          command: |
+            ECR_REGISTRY="${AWS_ECR_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+            docker pull $ECR_REGISTRY/sentimentdemo:latest
       - run:
           name: run image
-          command: docker run -d -p 8080:8080 992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
+          command: |
+            ECR_REGISTRY="${AWS_ECR_REGISTRY_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+            docker stop sentiment-app 2>/dev/null || true
+            docker rm sentiment-app 2>/dev/null || true
+            docker run -d --name sentiment-app -p 8080:8080 $ECR_REGISTRY/sentimentdemo:latest
 
 workflows:
   CICD:

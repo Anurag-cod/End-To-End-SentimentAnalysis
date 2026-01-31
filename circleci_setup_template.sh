@@ -113,8 +113,16 @@ sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --u
 
 
 
-# add them inside environment variables
-AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY
-AWS_REGION
-AWS_ECR_REGISTRY_ID
+# =============================================================================
+# CRITICAL: Add these in CircleCI Project Settings > Environment Variables
+# (NOT on the EC2 - CircleCI passes them to the runner when the job runs)
+# =============================================================================
+# AWS_ACCESS_KEY_ID          - IAM user access key (mark as secret)
+# AWS_SECRET_ACCESS_KEY      - IAM user secret key (mark as secret)
+# AWS_REGION                 - e.g. ap-south-1 (must match ECR region!)
+# AWS_ECR_REGISTRY_ID        - Your 12-digit AWS account ID (e.g. 992382366985)
+#
+# IAM user needs these ECR permissions for pull:
+#   - ecr:GetAuthorizationToken
+#   - ecr:BatchGetImage, ecr:GetDownloadUrlForLayer, ecr:BatchCheckLayerAvailability
+# =============================================================================
