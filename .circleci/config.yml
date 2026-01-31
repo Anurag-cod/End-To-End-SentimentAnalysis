@@ -1,49 +1,22 @@
 version: 2.1
-
 orbs:
-  aws-ecr: circleci/aws-ecr@8.2.1
   aws-cli: circleci/aws-cli@3.1.4
-
 jobs:
-  continuous-integration:
-    docker:
-      - image: cimg/base:stable
-    resource_class: medium
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - aws-ecr/build-and-push-image:
-          create-repo: true
-          dockerfile: Dockerfile
-          path: .
-          platform: linux/amd64
-          push-image: true
-          region: '${AWS_REGION}'
-          repo: demo
-          registry-id: AWS_ECR_REGISTRY_ID
-          repo-scan-on-push: true
-          tag: latest
-
-  continuous-delivery:
+  build-and-deploy:
     machine: true
     resource_class: anurag/sentimentrunner
     steps:
-      - aws-cli/setup
+      - checkout
       - run:
-          name: auth to aws ecr
-          command: aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 992382366985.dkr.ecr.ap-south-1.amazonaws.com
+          name: build docker image
+          command: docker build -t sentimentdemo:latest .
       - run:
-          name: pull image from private repository
-          command: docker pull 992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
+          name: stop old container
+          command: docker stop sentimentdemo || true && docker rm sentimentdemo || true
       - run:
-          name: run image
-          command: docker run -d -p 8080:8080 992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
-
+          name: run new container
+          command: docker run -d --name sentimentdemo -p 8080:8080 sentimentdemo:latest
 workflows:
   CICD:
     jobs:
-      - continuous-integration
-      - continuous-delivery:
-          requires:
-            - continuous-integration
+      - build-and-deploy
