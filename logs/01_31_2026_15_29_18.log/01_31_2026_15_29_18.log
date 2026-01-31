@@ -1,0 +1,12 @@
+[ 2026-01-31 15:29:19,703 ] numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+[ 2026-01-31 15:29:25,838 ] tensorflow - DEBUG - Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+[ 2026-01-31 15:29:26,413 ] h5py._conv - DEBUG - Creating converter from 7 to 5
+[ 2026-01-31 15:29:26,413 ] h5py._conv - DEBUG - Creating converter from 5 to 7
+[ 2026-01-31 15:29:26,413 ] h5py._conv - DEBUG - Creating converter from 7 to 5
+[ 2026-01-31 15:29:26,413 ] h5py._conv - DEBUG - Creating converter from 5 to 7
+[ 2026-01-31 15:29:27,450 ] matplotlib - DEBUG - matplotlib data path: /opt/anaconda3/lib/python3.12/site-packages/matplotlib/mpl-data
+[ 2026-01-31 15:29:27,454 ] matplotlib - DEBUG - CONFIGDIR=/Users/anuragramteke/.matplotlib
+[ 2026-01-31 15:29:27,454 ] matplotlib - DEBUG - interactive is False
+[ 2026-01-31 15:29:27,454 ] matplotlib - DEBUG - platform is darwin
+[ 2026-01-31 15:29:27,485 ] matplotlib - DEBUG - CACHEDIR=/Users/anuragramteke/.matplotlib
+[ 2026-01-31 15:29:27,487 ] matplotlib.font_manager - DEBUG - Using fontManager instance from /Users/anuragramteke/.matplotlib/fontlist-v330.json

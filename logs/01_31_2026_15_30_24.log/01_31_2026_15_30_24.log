@@ -1,0 +1,72 @@
+[ 2026-01-31 15:30:24,532 ] numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+[ 2026-01-31 15:30:29,743 ] tensorflow - DEBUG - Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+[ 2026-01-31 15:30:30,162 ] h5py._conv - DEBUG - Creating converter from 7 to 5
+[ 2026-01-31 15:30:30,163 ] h5py._conv - DEBUG - Creating converter from 5 to 7
+[ 2026-01-31 15:30:30,163 ] h5py._conv - DEBUG - Creating converter from 7 to 5
+[ 2026-01-31 15:30:30,163 ] h5py._conv - DEBUG - Creating converter from 5 to 7
+[ 2026-01-31 15:30:31,056 ] matplotlib - DEBUG - matplotlib data path: /opt/anaconda3/lib/python3.12/site-packages/matplotlib/mpl-data
+[ 2026-01-31 15:30:31,059 ] matplotlib - DEBUG - CONFIGDIR=/Users/anuragramteke/.matplotlib
+[ 2026-01-31 15:30:31,060 ] matplotlib - DEBUG - interactive is False
+[ 2026-01-31 15:30:31,060 ] matplotlib - DEBUG - platform is darwin
+[ 2026-01-31 15:30:31,088 ] matplotlib - DEBUG - CACHEDIR=/Users/anuragramteke/.matplotlib
+[ 2026-01-31 15:30:31,089 ] matplotlib.font_manager - DEBUG - Using fontManager instance from /Users/anuragramteke/.matplotlib/fontlist-v330.json
+[ 2026-01-31 15:31:07,609 ] root - INFO - Entered the run_pipeline method of TrainPipeline class
+[ 2026-01-31 15:31:07,616 ] root - INFO - Entered the start_data_ingestion method of TrainPipeline class
+[ 2026-01-31 15:31:07,616 ] root - INFO - Getting the data from GCLoud Storage bucket
+[ 2026-01-31 15:31:07,616 ] root - INFO - Entered the initiate_data_ingestion method of Data ingestion class
+[ 2026-01-31 15:31:07,616 ] root - INFO - Entered the get_data_from_gcloud method of Data ingestion class
+[ 2026-01-31 15:31:11,102 ] root - INFO - Exited the get_data_from_gcloud method of Data ingestion class
+[ 2026-01-31 15:31:11,102 ] root - INFO - Fetched the data from gcloud bucket
+[ 2026-01-31 15:31:11,102 ] root - INFO - Entered the unzip_and_clean method of Data ingestion class
+[ 2026-01-31 15:31:11,386 ] root - INFO - Exited the unzip_and_clean method of Data ingestion class
+[ 2026-01-31 15:31:11,386 ] root - INFO - Unzipped and prepared training and validation files
+[ 2026-01-31 15:31:11,386 ] root - INFO - Exited the initiate_data_ingestion method of Data ingestion class
+[ 2026-01-31 15:31:11,386 ] root - INFO - Data ingestion artifact: DataIngestionArtifacts(training_file_path='/Users/anuragramteke/Desktop/NLPProject/artifacts/01_31_2026_15_30_24/DataIngestionArtifacts/twitter_training.csv', validation_file_path='/Users/anuragramteke/Desktop/NLPProject/artifacts/01_31_2026_15_30_24/DataIngestionArtifacts/twitter_validation.csv')
+[ 2026-01-31 15:31:11,386 ] root - INFO - Got the train and valid from GCLoud Storage
+[ 2026-01-31 15:31:11,386 ] root - INFO - Exited the start_data_ingestion method of TrainPipeline class
+[ 2026-01-31 15:31:11,386 ] root - INFO - Entered the start_data_transformation method of TrainPipeline class
+[ 2026-01-31 15:31:11,386 ] root - INFO - Entered the initiate_data_transformation method of Data transformation class
+[ 2026-01-31 15:31:11,386 ] root - INFO - Entered load_and_prepare (notebook: training + test, drop Header1 & company)
+[ 2026-01-31 15:31:11,517 ] root - INFO - Combined and cleaned dataframe shape: (70252, 2)
+[ 2026-01-31 15:31:11,518 ] root - INFO - Applying process_text (lemmatization, stopwords, etc.) on text column
+[ 2026-01-31 15:31:20,715 ] root - INFO - Returning the DataTransformationArtifacts
+[ 2026-01-31 15:31:20,718 ] root - INFO - Exited the start_data_transformation method of TrainPipeline class
+[ 2026-01-31 15:31:20,718 ] root - INFO - Entered the start_model_trainer method of TrainPipeline class
+[ 2026-01-31 15:31:20,718 ] root - INFO - Entered initiate_model_trainer method of ModelTrainer class
+[ 2026-01-31 15:31:20,718 ] root - INFO - Entered the split_data function
+[ 2026-01-31 15:31:20,772 ] root - INFO - Exited the split_data function
+[ 2026-01-31 15:31:20,773 ] root - INFO - Applying tokenization and padding (notebook: max_vocab=20000, maxlen=100)
+[ 2026-01-31 15:31:21,442 ] root - INFO - Vocab size (for Embedding): 24150
+[ 2026-01-31 15:31:21,677 ] root - INFO - Starting model training (notebook: 20 epochs)
+[ 2026-01-31 15:58:49,107 ] root - INFO - Model training finished
+[ 2026-01-31 15:58:49,210 ] absl - WARNING - You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+[ 2026-01-31 15:58:49,365 ] h5py._conv - DEBUG - Creating converter from 5 to 3
+[ 2026-01-31 15:58:49,845 ] root - INFO - Returning the ModelTrainerArtifacts
+[ 2026-01-31 15:58:49,855 ] root - INFO - Exited the start_model_trainer method of TrainPipeline class
+[ 2026-01-31 15:58:49,856 ] root - INFO - Entered the start_model_evaluation method of TrainPipeline class
+[ 2026-01-31 15:58:49,858 ] root - INFO - Initiate Model Evaluation
+[ 2026-01-31 15:58:49,858 ] root - INFO - Entering the evaluate function of Model Evaluation class
+[ 2026-01-31 15:58:50,019 ] h5py._conv - DEBUG - Creating converter from 3 to 5
+[ 2026-01-31 15:58:50,220 ] absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+[ 2026-01-31 15:59:05,065 ] root - INFO - Model evaluation result (loss, accuracy): [0.46571266651153564, 0.8363105654716492]
+[ 2026-01-31 15:59:19,376 ] root - INFO - Confusion matrix: [[1958  156  121  210]
+ [ 140 3665  170  313]
+ [ 138  178 2935  271]
+ [ 178  251  174 3193]]
+[ 2026-01-31 15:59:19,377 ] root - INFO - Entered the get_best_model_from_gcloud method of Model Evaluation class
+[ 2026-01-31 15:59:21,064 ] root - INFO - Exited the get_best_model_from_gcloud method of Model Evaluation class
+[ 2026-01-31 15:59:21,064 ] root - INFO - Best model not present in GCloud; accepting trained model
+[ 2026-01-31 15:59:21,065 ] root - INFO - Returning the ModelEvaluationArtifacts
+[ 2026-01-31 15:59:21,065 ] root - INFO - Exited the start_model_evaluation method of TrainPipeline class
+[ 2026-01-31 15:59:21,065 ] root - INFO - Entered the start_model_pusher method of TrainPipeline class
+[ 2026-01-31 15:59:21,066 ] root - INFO - Entered initiate_model_pusher method of ModelTrainer class
+[ 2026-01-31 15:59:27,146 ] root - INFO - Uploaded best model to gcloud storage
+[ 2026-01-31 15:59:27,146 ] root - INFO - Exited the initiate_model_pusher method of ModelTrainer class
+[ 2026-01-31 15:59:27,147 ] root - INFO - Initiated the model pusher
+[ 2026-01-31 15:59:27,147 ] root - INFO - Exited the start_model_pusher method of TrainPipeline class
+[ 2026-01-31 15:59:27,147 ] root - INFO - Exited the run_pipeline method of TrainPipeline class
+[ 2026-01-31 16:00:15,582 ] root - INFO - Entered the run_pipeline method of PredictionPipeline class
+[ 2026-01-31 16:00:15,582 ] root - INFO - Entered the get_model_from_gcloud method of PredictionPipeline class
+[ 2026-01-31 16:00:20,663 ] root - INFO - Exited the get_model_from_gcloud method of PredictionPipeline class
+[ 2026-01-31 16:00:20,663 ] root - INFO - Running the predict function
+[ 2026-01-31 16:00:20,840 ] absl - WARNING - Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.

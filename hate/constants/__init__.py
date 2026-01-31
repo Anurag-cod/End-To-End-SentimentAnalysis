@@ -5,7 +5,7 @@ from datetime import datetime
 # Common constants
 TIMESTAMP: str = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
 ARTIFACTS_DIR = os.path.join("artifacts", TIMESTAMP)
-BUCKET_NAME = 'hate-speech2024'
+BUCKET_NAME = 'sentiment-analysis-demo'
 ZIP_FILE_NAME = 'dataset.zip'
 LABEL = 'label'
 LABELS_COLUMN = 'labels'  # notebook column name for sentiment labels
@@ -44,7 +44,7 @@ LABEL_ENCODER_FILE_NAME = 'label_encoder.pickle'
 
 RANDOM_STATE = 42
 TEST_SIZE = 0.2
-EPOCH = 20
+EPOCH = 4
 BATCH_SIZE = 128
 VALIDATION_SPLIT = 0.2
 

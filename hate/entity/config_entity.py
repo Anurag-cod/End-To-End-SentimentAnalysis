@@ -85,6 +85,8 @@ class ModelPusherConfig:
         self.TRAINED_MODEL_PATH = os.path.join(os.getcwd(),ARTIFACTS_DIR, MODEL_TRAINER_ARTIFACTS_DIR)
         self.BUCKET_NAME = BUCKET_NAME
         self.MODEL_NAME = MODEL_NAME
+        self.TOKENIZER_FILE_NAME = TOKENIZER_FILE_NAME
+        self.LABEL_ENCODER_FILE_NAME = LABEL_ENCODER_FILE_NAME
     
 
 

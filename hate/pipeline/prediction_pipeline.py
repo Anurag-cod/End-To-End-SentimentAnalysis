@@ -28,16 +28,37 @@ class PredictionPipeline:
         logging.info("Entered the get_model_from_gcloud method of PredictionPipeline class")
         try:
             os.makedirs(self.model_path, exist_ok=True)
-            self.gcloud.sync_folder_from_gcloud(self.bucket_name, self.model_name, self.model_path)
+            # Sync model, tokenizer, and label_encoder from GCloud (tokenizer/label_encoder may not exist yet from older runs)
+            for filename in [self.model_name, TOKENIZER_FILE_NAME, LABEL_ENCODER_FILE_NAME]:
+                self.gcloud.sync_folder_from_gcloud(self.bucket_name, filename, self.model_path)
             best_model_path = os.path.join(self.model_path, self.model_name)
             logging.info("Exited the get_model_from_gcloud method of PredictionPipeline class")
             return best_model_path
         except Exception as e:
             raise CustomException(e, sys) from e
 
+    def _find_fallback_artifacts_dir(self) -> str | None:
+        """If tokenizer/label_encoder missing in PredictModel, use latest ModelTrainerArtifacts."""
+        artifacts_root = os.path.join("artifacts")
+        if not os.path.isdir(artifacts_root):
+            return None
+        runs = sorted([d for d in os.listdir(artifacts_root) if os.path.isdir(os.path.join(artifacts_root, d))
+                      and d != "PredictModel"], reverse=True)
+        for run in runs:
+            fallback = os.path.join(artifacts_root, run, "ModelTrainerArtifacts")
+            if os.path.isfile(os.path.join(fallback, TOKENIZER_FILE_NAME)) and os.path.isfile(os.path.join(fallback, LABEL_ENCODER_FILE_NAME)):
+                return fallback
+        return None
+
     def _load_tokenizer_and_label_encoder(self, model_dir: str):
         tokenizer_path = os.path.join(model_dir, TOKENIZER_FILE_NAME)
         label_encoder_path = os.path.join(model_dir, LABEL_ENCODER_FILE_NAME)
+        if not os.path.isfile(tokenizer_path) or not os.path.isfile(label_encoder_path):
+            fallback = self._find_fallback_artifacts_dir()
+            if fallback:
+                logging.info(f"Using tokenizer/label_encoder from fallback: {fallback}")
+                tokenizer_path = os.path.join(fallback, TOKENIZER_FILE_NAME)
+                label_encoder_path = os.path.join(fallback, LABEL_ENCODER_FILE_NAME)
         with open(tokenizer_path, 'rb') as handle:
             tokenizer = pickle.load(handle)
         with open(label_encoder_path, 'rb') as handle:

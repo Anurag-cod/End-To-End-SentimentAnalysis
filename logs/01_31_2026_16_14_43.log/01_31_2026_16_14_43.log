@@ -1,0 +1,40 @@
+[ 2026-01-31 16:14:44,402 ] numexpr.utils - INFO - NumExpr defaulting to 8 threads.
+[ 2026-01-31 16:14:50,257 ] tensorflow - DEBUG - Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+[ 2026-01-31 16:14:50,703 ] h5py._conv - DEBUG - Creating converter from 7 to 5
+[ 2026-01-31 16:14:50,703 ] h5py._conv - DEBUG - Creating converter from 5 to 7
+[ 2026-01-31 16:14:50,703 ] h5py._conv - DEBUG - Creating converter from 7 to 5
+[ 2026-01-31 16:14:50,703 ] h5py._conv - DEBUG - Creating converter from 5 to 7
+[ 2026-01-31 16:14:51,470 ] matplotlib - DEBUG - matplotlib data path: /opt/anaconda3/lib/python3.12/site-packages/matplotlib/mpl-data
+[ 2026-01-31 16:14:51,474 ] matplotlib - DEBUG - CONFIGDIR=/Users/anuragramteke/.matplotlib
+[ 2026-01-31 16:14:51,475 ] matplotlib - DEBUG - interactive is False
+[ 2026-01-31 16:14:51,475 ] matplotlib - DEBUG - platform is darwin
+[ 2026-01-31 16:14:51,505 ] matplotlib - DEBUG - CACHEDIR=/Users/anuragramteke/.matplotlib
+[ 2026-01-31 16:14:51,506 ] matplotlib.font_manager - DEBUG - Using fontManager instance from /Users/anuragramteke/.matplotlib/fontlist-v330.json
+[ 2026-01-31 16:14:59,944 ] root - INFO - Entered the run_pipeline method of TrainPipeline class
+[ 2026-01-31 16:14:59,945 ] root - INFO - Entered the start_data_ingestion method of TrainPipeline class
+[ 2026-01-31 16:14:59,945 ] root - INFO - Getting the data from GCLoud Storage bucket
+[ 2026-01-31 16:14:59,945 ] root - INFO - Entered the initiate_data_ingestion method of Data ingestion class
+[ 2026-01-31 16:14:59,945 ] root - INFO - Entered the get_data_from_gcloud method of Data ingestion class
+[ 2026-01-31 16:15:03,638 ] root - INFO - Exited the get_data_from_gcloud method of Data ingestion class
+[ 2026-01-31 16:15:03,639 ] root - INFO - Fetched the data from gcloud bucket
+[ 2026-01-31 16:15:03,639 ] root - INFO - Entered the unzip_and_clean method of Data ingestion class
+[ 2026-01-31 16:15:04,086 ] root - INFO - Exited the unzip_and_clean method of Data ingestion class
+[ 2026-01-31 16:15:04,086 ] root - INFO - Unzipped and prepared training and validation files
+[ 2026-01-31 16:15:04,086 ] root - INFO - Exited the initiate_data_ingestion method of Data ingestion class
+[ 2026-01-31 16:15:04,086 ] root - INFO - Data ingestion artifact: DataIngestionArtifacts(training_file_path='/Users/anuragramteke/Desktop/NLPProject/artifacts/01_31_2026_16_14_44/DataIngestionArtifacts/twitter_training.csv', validation_file_path='/Users/anuragramteke/Desktop/NLPProject/artifacts/01_31_2026_16_14_44/DataIngestionArtifacts/twitter_validation.csv')
+[ 2026-01-31 16:15:04,086 ] root - INFO - Got the train and valid from GCLoud Storage
+[ 2026-01-31 16:15:04,086 ] root - INFO - Exited the start_data_ingestion method of TrainPipeline class
+[ 2026-01-31 16:15:04,086 ] root - INFO - Entered the start_data_transformation method of TrainPipeline class
+[ 2026-01-31 16:15:04,086 ] root - INFO - Entered the initiate_data_transformation method of Data transformation class
+[ 2026-01-31 16:15:04,086 ] root - INFO - Entered load_and_prepare (notebook: training + test, drop Header1 & company)
+[ 2026-01-31 16:15:04,233 ] root - INFO - Combined and cleaned dataframe shape: (70252, 2)
+[ 2026-01-31 16:15:04,233 ] root - INFO - Applying process_text (lemmatization, stopwords, etc.) on text column
+[ 2026-01-31 16:15:13,792 ] root - INFO - Returning the DataTransformationArtifacts
+[ 2026-01-31 16:15:13,797 ] root - INFO - Exited the start_data_transformation method of TrainPipeline class
+[ 2026-01-31 16:15:13,797 ] root - INFO - Entered the start_model_trainer method of TrainPipeline class
+[ 2026-01-31 16:15:13,797 ] root - INFO - Entered initiate_model_trainer method of ModelTrainer class
+[ 2026-01-31 16:15:13,797 ] root - INFO - Entered the split_data function
+[ 2026-01-31 16:15:13,869 ] root - INFO - Exited the split_data function
+[ 2026-01-31 16:15:13,870 ] root - INFO - Applying tokenization and padding (notebook: max_vocab=20000, maxlen=100)
+[ 2026-01-31 16:15:14,564 ] root - INFO - Vocab size (for Embedding): 24150
+[ 2026-01-31 16:15:14,818 ] root - INFO - Starting model training (notebook: 20 epochs)

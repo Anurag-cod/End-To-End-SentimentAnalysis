@@ -24,13 +24,18 @@ class ModelPusher:
         """
         logging.info("Entered initiate_model_pusher method of ModelTrainer class")
         try:
-            # Uploading the model to gcloud storage
-
+            # Uploading the model and required artifacts to gcloud storage
             self.gcloud.sync_folder_to_gcloud(self.model_pusher_config.BUCKET_NAME,
                                               self.model_pusher_config.TRAINED_MODEL_PATH,
                                               self.model_pusher_config.MODEL_NAME)
+            self.gcloud.sync_folder_to_gcloud(self.model_pusher_config.BUCKET_NAME,
+                                              self.model_pusher_config.TRAINED_MODEL_PATH,
+                                              self.model_pusher_config.TOKENIZER_FILE_NAME)
+            self.gcloud.sync_folder_to_gcloud(self.model_pusher_config.BUCKET_NAME,
+                                              self.model_pusher_config.TRAINED_MODEL_PATH,
+                                              self.model_pusher_config.LABEL_ENCODER_FILE_NAME)
 
-            logging.info("Uploaded best model to gcloud storage")
+            logging.info("Uploaded best model and artifacts to gcloud storage")
 
             # Saving the model pusher artifacts
             model_pusher_artifact = ModelPusherArtifacts(

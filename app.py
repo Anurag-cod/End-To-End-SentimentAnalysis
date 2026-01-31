@@ -8,6 +8,7 @@ from fastapi.responses import Response
 from hate.pipeline.prediction_pipeline import PredictionPipeline
 from hate.exception import CustomException
 from hate.constants import *
+from hate.configuration.gcloud_syncer import GCloudSync
 
 
 class PredictRequest(BaseModel):
@@ -58,3 +59,6 @@ if __name__=="__main__":
 # train_pipeline = TrainPipeline()
 
 # train_pipeline.run_pipeline()
+
+# obj= GCloudSync()
+# obj.sync_folder_from_gcloud("sentiment-analysis-demo", "dataset.zip", 'dataset.zip')
