@@ -1,22 +1,57 @@
 version: 2.1
+
 orbs:
+  aws-ecr: circleci/aws-ecr@8.2.1
   aws-cli: circleci/aws-cli@3.1.4
+
 jobs:
-  continuous_integration:
+  continuous-integration:
+    docker:
+      - image: cimg/base:stable
+    resource_class: medium
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - aws-ecr/build-and-push-image:
+          create-repo: true
+          dockerfile: Dockerfile
+          path: .
+          platform: linux/amd64
+          push-image: true
+          region: '${AWS_REGION}'
+          repo: sentimentdemo
+          registry-id: AWS_ECR_REGISTRY_ID
+          repo-scan-on-push: true
+          tag: latest
+
+  continuous-delivery:
     machine: true
     resource_class: anurag/sentimentrunner
     steps:
-      - checkout
+      - aws-cli/setup
       - run:
-          name: build docker image
-          command: docker build -t sentimentdemo:latest .
-      - run:
-          name: stop old container
-          command: docker stop sentimentdemo || true && docker rm sentimentdemo || true
-      - run:
-          name: run new container
-          command: docker run -d --name sentimentdemo -p 8080:8080 sentimentdemo:latest
+          name: Deploy to EC2
+          command: |
+            ssh ubuntu@$EC2_PUBLIC_IP \<< 'EOF'
+              aws ecr get-login-password --region ap-south-1 \
+              | docker login --username AWS --password-stdin 992382366985.dkr.ecr.ap-south-1.amazonaws.com
+
+              docker pull 992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
+
+              docker stop sentimentdemo || true
+              docker rm sentimentdemo || true
+
+              docker run -d \
+                --name sentimentdemo \
+                -p 8080:8080 \
+                992382366985.dkr.ecr.ap-south-1.amazonaws.com/sentimentdemo:latest
+            EOF
+
 workflows:
   CICD:
     jobs:
-      - continuous_integration
+      - continuous-integration
+      - continuous-delivery:
+          requires:
+            - continuous-integration
